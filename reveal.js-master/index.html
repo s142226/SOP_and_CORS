@@ -1,0 +1,316 @@
+
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>reveal.js - The HTML Presentation Framework</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/sky.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+<!--        <script>
+                        var btn = document.getElementByID("btn");
+                        btn.setAttribute("alt","TEST");
+                        
+                        window.onload = function() {
+                        btn.addEventListener("click", change);
+                        
+                            
+                        function change() {
+                            var iframe = document.getElementByID("frame");
+                            iframe.getElementByID("img").setAttribute("alt", "hi");}
+                        }
+        </script> -->
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+                
+<!--
+                <section>
+
+                </section>
+-->
+                   
+                
+
+                
+
+				<section>
+					<h2>Same Origin Policy and Cross-Origin Resource Sharing</h2>
+					<p>
+						<small>Created by Soner Bargu</small>
+					</p>
+				</section>
+
+				<section>
+					<h2 style="line-height:200%">Gliederung</h2>
+					<p>
+                        <ol>
+                            <li>Teil 1: SOP</li>
+                                <ol type="a">
+                                    <li>Hintergrund</li>
+                                    <li>Vergleich der origin</li>
+                                    <li>Problematik</li>
+                                </ol>
+                            </p>
+                            <p>
+                            <li>Teil 2: CORS</li>
+                                <ol type=a>
+                                    <li>Funktionsweise</li>
+                                    <li>Bespiele</li>
+                                    <ol type="A">
+                                        <li><i>Simple</li>
+                                        <li>Preflight</i></li>
+                                    </ol>
+                                    <li>Headers
+                    </ol>
+						</p>
+				</section>
+				<!-- SAME ORIGIN POLICY -->
+				<section>
+					<section>
+						<h2>Same Origin Policy</h2>
+						<p></p>
+					</section>
+					<section>
+						<h2>Hintergrund</h2>
+                        <p><strong>Problem: </strong>Skriptsprachen im Browser haben direkten Zugriff auf die gesamte Kommunkation zwischen Browser und Web-Servern
+                        </p>
+					<p>
+                        <strong>Idee: </strong>
+                        Informationen aus einem Skript-Kontext dürfen nicht von einem Skript aus einem anderen Kontext zugreifbar oder manipulierbar sein
+                    </p>
+                    </section>
+                    <section>
+					<h2>Vergleich der origin</h2>
+                    Client: <i>http://ma.dhbw.de/dir/seite.html</i>
+					<p>
+                    <table>
+						<thead>
+							<tr>
+								<th>Server</th>
+								<th>Erfolg</th>
+								<th>Grund</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>http://ma.dhbw.de/dir/andereseite.html</td>
+								<td>Ja</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>http://ma.dhbw.de/ordner/seite.html</td>
+								<td>Ja</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>http://ma.dhbw.de:81/dir/seite.html</td>
+								<td>Nein</td>
+								<td>Port</td>
+							</tr>
+                            <tr>
+                                <td>https://ma.dhbw.de/dir/seite.html</td>
+                                <td>Nein</td>
+                                <td>Protokoll</td>
+                            </tr>
+                            <tr>
+                                <td>http://st.dhbw.de/dir/seite.html</td>
+                                <td>Nein</td>
+                                <td>Host</td>
+                            </tr>
+						</tbody>
+					</table>
+                    </p>
+                    <p style="line-height: 500%">
+                        <strong>Herkunft</strong> = Protokoll + Domain + Port
+                    </p>
+				</section>
+                <section data-background="#dddddd">
+                        <h2>Demo</h2>
+                        <iframe src="http://localhost:88/demo1.html" id="frame2"></iframe>
+                        <br />
+                        <button type="submit" id="Knopf2">Send Response</button>
+                        <br />
+                        <textarea rows="20" cols="50" id="error">
+HTTP-Response
+                        </textarea>
+                    </section>
+                <section>
+                    <h2>Problematik</h2>
+                    <p><ul>
+                        <li style="line-height: 300%">Vor Angriffsmethoden nicht ausreichend geschützt</li>
+                        <li style="line-height: 100%">Grenzen des SOP oftmals nicht erwünscht</li>
+                    </ul></p>
+                </section>
+				</section>
+
+
+
+
+
+				<!-- CROSS ORIGIN RESOURCE SHARING -->
+				<section>
+					<section>
+						<h2>Cross-Origin Resource Sharing</h2>
+						<p>Kompromiss zugunsten größerer <strong>Flexibilität</strong> im Internet, unter Berücksichtung möglichst hoher <strong>Sicherheitsmaßnahmen</strong>.</p>
+					</section>
+					<section>
+						<h2 style="line-height:200%">Fuktionsweise</h2>
+						<p>Einschränkungen können vom Server für bestimmte Clients aufgehoben werden.</p>
+                        <p>
+                            Dies geschieht durch spezifischen HTTP-Header.
+                        </p>
+					</section>
+					<section data-background="#dddddd">
+						<h2>Beispiele / Demo</h2>
+                    </section>
+					<section data-background="#dddddd">
+                        <h2>Simple Request</h2>
+                        <iframe src="http://localhost:88/demo1.html" id="frame1"></iframe>
+                        <br />
+                        <button type="submit" id="Knopf">Send Response</button>
+                        <br />
+                        <textarea rows="20" cols="50" id="answer">
+HTTP-Response
+                        </textarea>
+                    </section>
+					<section data-background="#dddddd">
+                        <h2>Preflight Request</h2>
+                    </section>
+                    <section>
+                        <h2>Header</h2>
+                        <p>Es steht eine Vielzahl an Headern für Spezifizierungen zur Verfügung.</p>
+                        <p>Beispiele:</p>
+                        <pre><code class="html" data-trim contenteditable>
+                        Access-Control-Allow-Origin: http://ma.dhbw.de/dir/seite
+Access-Control-Allow-Method: POST,GET,OPTIONS
+Access-Control-Max-Age: 1728000                        
+					</code></pre>
+				</section>
+                </section>
+
+
+
+
+                <section>
+                    <section>
+                    <h2>Vielen Dank für die Aufmerksamkeit</h2>
+                    </section>
+                </section>
+
+<!--					<iframe src="//www.slideshare.net/slideshow/embed_code/42840540" width="445" height="355" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:3px solid #666; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe>
+-->
+			</div>
+		</div>
+    <!-- ENDE DER SECTIONS, ALSO FOLIEN -->
+
+
+
+
+
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+        <script>
+            //SCRIPT FÜR DEMO
+//---------------------------DEMO CORS----------------------------------------
+            var xhr;
+            var btn = document.getElementById("Knopf");
+            btn.addEventListener("click", function(){
+                xhr = new XMLHttpRequest();
+                xhr.addEventListener("load", reqListener);
+                var url = 'http://localhost:88/demo1.html';
+                if(xhr) {    
+                    xhr.open('GET', url, true);
+                    xhr.send();
+                }
+                
+                function reqListener () {
+                    var answer = document.getElementById("answer");
+                    answer.value = this.responseText;
+                    
+                    console.log(this.responseText);
+                }
+            })
+            
+            
+            
+//---------------------------DEMO SOP------------------------------------------
+            var xhr2;
+            var btn = document.getElementById("Knopf2");
+            btn.addEventListener("click", function(){
+                xhr2 = new XMLHttpRequest();
+                xhr2.addEventListener("load", reqListener);
+                var url = 'http://localhost:88/demo1.html';
+                if(xhr2) {    
+                    xhr2.open('GET', url, true);
+                    xhr2.send();
+                }
+                function reqListener () {
+                    var answer = document.getElementById("error");
+                    answer.value = this.responseText;
+                    
+                    console.log(this.responseText);
+                }
+            })
+
+
+        </script>
+	</body>
+</html>
